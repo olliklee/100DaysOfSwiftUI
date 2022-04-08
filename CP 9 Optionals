@@ -1,0 +1,8 @@
+import SwiftUI
+
+func randomChoice(of myIntArray: [Int]?) -> Int {
+    return myIntArray?.randomElement() ?? Int.random(in: 1...100)
+}
+print (randomChoice(of: ))
+print (randomChoice(of: []))
+print (randomChoice(of: [1,2,3,4]))

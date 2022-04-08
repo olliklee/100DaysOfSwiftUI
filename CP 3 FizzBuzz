@@ -1,0 +1,216 @@
+import SwiftUI
+
+func timeFrom (_ start: Date) -> Int{
+    let stop = Date()
+    return Int(stop.timeIntervalSince(start)*1000)
+}
+
+func fizzbuzzv0 (maxNumber : Int){
+    let start = Date()
+    var output: String
+    var fizzBuzz: Bool
+    for i in 1...maxNumber {
+        fizzBuzz = true
+        output = "\(i) is "
+        if i % 3 == 0{
+            output += "Fizz"
+            fizzBuzz = false
+        }
+        if i % 5 == 0 {
+            output += "Buzz"
+            fizzBuzz = false
+        }
+        if fizzBuzz {
+            output += "\(i)"
+        } 
+    }
+    print ("   \(timeFrom(start)) msec (\(maxNumber) Loops) with \"For-Loop and 3 x If, Bool-Variable\"")
+}
+
+func fizzbuzzv1 (maxNumber: Int){
+    let start = Date()
+    var output: String
+    for i in 1...maxNumber{
+        output = "\(i) is "
+        switch (i % 3 == 0, i % 5 == 0){
+        case (true, false):
+            output += "Fizz"
+        case (false, true): 
+            output += "Buzz"
+        case (true, true):
+            output += "FizzBuzz"
+        default: 
+            output += "\(i)"
+        }
+    }
+    
+    print ("   \(timeFrom(start)) msec (\(maxNumber) Loops) with \"For-Loop and Switch\"")
+}
+
+func fizzbuzzv2 (maxNumber: Int){
+    var output: String
+    let fizzbuzz = { (number: Int) in
+        var output = "\(number) is "
+        switch (number % 3 == 0, number % 5 == 0)
+        {
+        case (true, false):
+            output += "Fizz"
+        case (false, true):
+            output += "Buzz"
+        case (true, true):
+            output += "FizzBuzz"
+        default:
+            output += "\(number)"
+        }
+    }
+    
+    let start = Date()
+    
+    for i in 1 ... maxNumber{
+        fizzbuzz(i)
+    }
+    
+    print ("   \(timeFrom(start)) msec (\(maxNumber) Loops) with \"For-Loop and Switch in Closure\"")
+}
+
+
+func fizzbuzzv3 (maxNumber: Int) {
+    let start = Date()
+    var output: String
+    for i in 1...maxNumber {
+        output = "\(i) is "
+        if i % 15 == 0{
+            output += "FizzBuzz"
+        }
+        else if i % 3 == 0 {
+            output += "Fizz"
+        } 
+        else if i % 5 == 0 {
+            output += "Buzz"
+        }
+        else {
+            output += "\(i)"
+        }
+    }
+    print ("   \(timeFrom(start)) msec (\(maxNumber) Loops) with \"For-Loop and If and 2 x Else If\"")
+}
+
+func fizzbuzzv4 (maxNumber: Int) {
+    let start = Date()
+    var output: String
+    var i = 1
+    while i <= maxNumber {
+        output = "\(i) is "
+        if i % 15 == 0{
+            output += "FizzBuzz"
+        }
+        else if i % 3 == 0 {
+            output += "Fizz"
+        } 
+        else if i % 5 == 0 {
+            output += "Buzz"
+        }
+        else {
+            output += "\(i)"
+        }
+        i += 1
+    }
+    print ("   \(timeFrom(start)) msec (\(maxNumber) Loops) with \"While-Loop and If and 2 x Else if\"")
+}
+
+func fizzbuzzv5 (maxNumber: Int) {
+    let start = Date()
+    var output: String
+    var i = 1
+    repeat {
+        output = "\(i) is "
+        if i % 15 == 0{
+            output += "FizzBuzz"
+        }
+        else if i % 3 == 0 {
+            output += "Fizz"
+        } 
+        else if i % 5 == 0 {
+            output += "Buzz"
+        }
+        else {
+            output += "\(i)"
+        }
+        i += 1
+    } while i <= maxNumber 
+    
+    print ("   \(timeFrom(start)) msec (\(maxNumber) Loops) with \"RepeatWhile-Loop and If and 2 x Else If\"")
+}
+
+func fizzbuzzv6 (maxNumber: Int) {
+    let start = Date()
+    var output: String
+    for i in 1...maxNumber {
+        output = "\(i) is "
+        
+        if i.isMultiple(of: 3) {
+            output += "Fizz"
+        }
+        
+        if i.isMultiple(of: 5) {
+            output += "Buzz"
+        }
+        
+        output = output.isEmpty ? "\(i)" : output
+    }
+    
+    print ("   \(timeFrom(start)) msec (\(maxNumber) Loops) with \"For-Loop and 2 x If and ternary\"")
+}
+
+func fizzbuzzv7 (maxNumber: Int) {
+    let start = Date()
+    var output: String
+    var i = 1
+    repeat {
+        output = "\(i) is "
+        
+        if i.isMultiple(of: 3) {
+            output += "Fizz"
+        }
+        
+        if i.isMultiple(of: 5) {
+            output += "Buzz"
+        }
+        
+        output = output.isEmpty ? "\(i)" : output
+        i += 1
+    } while i <= maxNumber
+    
+    print ("   \(timeFrom(start)) msec (\(maxNumber) Loops) with \"RepeatWhile-Loop and 2 x If and ternary\"")
+}
+
+///// Start of testing area
+
+let numberOfIterations = 1_000_000
+
+print ("This was my first approach: (Slowest tho...)")
+fizzbuzzv0(maxNumber: numberOfIterations)
+
+print ("\nBased on the solution in the tests of the \"100 days of Swift\" site:")
+fizzbuzzv1(maxNumber: numberOfIterations)
+
+print ("\nBased on the solutions of Asif Khan on https://www.appypie.com/fizzbuzz-swift:")
+fizzbuzzv2(maxNumber: numberOfIterations)
+fizzbuzzv3(maxNumber: numberOfIterations)
+fizzbuzzv4(maxNumber: numberOfIterations) 
+fizzbuzzv5(maxNumber: numberOfIterations)
+
+print ("\nBased on the solution from @antoniogiroz:")
+fizzbuzzv6(maxNumber: numberOfIterations)
+fizzbuzzv7(maxNumber: numberOfIterations)
+
+print ("\nOneliner from @Obelix with modulo:")
+var start = Date()
+for 🍺 in (1...numberOfIterations) { var output = "\(🍺) " +  (🍺%3 + 🍺%5 == 0 ? "fizzbuzz": (🍺%3 == 0 ?  "fizz" : (🍺%5 == 0 ? "buzz" : " "))) }
+print ("   \(timeFrom(start)) msec")
+
+print ("\nOneliner from @Obelix with isMultiple:")
+start = Date()
+for 🍺 in (1...numberOfIterations) { var output = "\(🍺) " +  (🍺.isMultiple(of: 15) ? "fizzbuzz": (🍺.isMultiple(of: 3) ?  "fizz" : (🍺.isMultiple(of: 5) ? "buzz" : " "))) }
+print ("   \(timeFrom(start)) msec")
+

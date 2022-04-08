@@ -1,0 +1,7 @@
+import SwiftUI
+
+let albums = ["Learning English 3", "Ein kleines bisschen Horroshow", "Runter mit den Spendierhosen", "Learning English 3"]
+
+let setOfAlbums = Set(albums)
+
+print ("Es sind \(albums.count) Alben in der Liste. Davon sind \(setOfAlbums.count) unterschiedlich.")

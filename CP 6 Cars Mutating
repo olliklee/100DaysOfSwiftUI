@@ -1,0 +1,32 @@
+import SwiftUI
+
+struct Car{
+    let model: String
+    let seats: Int
+    private(set) var gear: Int = 1
+    
+    mutating func shiftUp() {
+        gear += 1
+        if gear > 6 {
+            gear = 6
+            print ("You are already in the highest gear.")
+        }else{
+            print ("You are now in gear \(gear).")
+        }
+    }
+    
+    mutating func shiftDown() {
+        gear -= 1
+        if gear < 1 {
+            gear = 1
+            print ("You are already in gear \(gear).")
+        }else{
+            print ("You are now in gear \(gear).")
+        }
+    }
+}
+
+
+
+var kia = Car(model: "kia", seats: 5)
+print(kia.gear)

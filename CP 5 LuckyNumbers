@@ -1,0 +1,31 @@
+import SwiftUI
+
+let luckyNumbers = [7, 4, 38, 21, 16, 15, 12, 33, 31, 49]
+
+let filterThem = { (lNumbers: [Int]) -> [Int] in
+    lNumbers.filter( { !$0.isMultiple(of: 2) } )
+}
+
+let sortThem = { (lNumbers: [Int]) -> [Int] in
+    lNumbers.sorted()
+}
+
+let printThem = { (lNumbers: [Int]) -> Void in
+    lNumbers.map { print ("\($0) is a lucky number") }
+}
+
+printThem(sortThem(filterThem(luckyNumbers)))
+
+///
+///
+
+let show = { (_ numbers: [Int]) -> Void in 
+    numbers
+        .filter( { !$0.isMultiple(of: 2) } )
+        .sorted()
+        .map( { print ("\($0) is a lucky number") } )
+}
+
+show(luckyNumbers)
+
+

@@ -1,0 +1,37 @@
+import SwiftUI
+
+protocol Building {
+    var roomCount: Int { get }
+    var costs: Int { get set }
+    var agentsName : String { get set }
+    
+    func printSummary()     
+}
+
+extension Building {
+    func printSummary() {
+        print ("The \(Self.self) has \(roomCount) rooms. It costs \(costs)€ and its agent is \(agentsName).")
+    }
+}
+
+struct House: Building {
+    var roomCount: Int
+    var costs: Int
+    var agentsName: String
+}
+
+struct Office: Building {
+    let roomCount: Int
+    var costs: Int
+    var agentsName: String
+}
+
+var house = House(roomCount: 5, costs: 300_000, agentsName: "Paul Hudson")
+var office = Office(roomCount: 3, costs: 80_000, agentsName: "Karla Kolumna")
+
+house.printSummary()
+office.printSummary()
+
+house.roomCount = 2
+
+house.printSummary()
